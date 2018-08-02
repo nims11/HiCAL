@@ -79,12 +79,14 @@ vector<int> BMI_reduced_ranking::perform_training_iteration(){
     // Training
     TIMER_BEGIN(training);
     auto weights = train();
+    training_time += (std::chrono::duration_cast<std::chrono::milliseconds> (std::chrono::steady_clock::now() - starttraining)).count();
     TIMER_END(training);
 
     // Scoring
     if(is_it_refresh_time()){
         TIMER_BEGIN(rescoring);
         auto results = documents->rescore(weights, num_threads, subset_size, judgments);
+        scoring_time += (std::chrono::duration_cast<std::chrono::milliseconds> (std::chrono::steady_clock::now() - startrescoring)).count();
         TIMER_END(rescoring);
 
         indices.clear();
@@ -96,6 +98,7 @@ vector<int> BMI_reduced_ranking::perform_training_iteration(){
     } else {
         TIMER_BEGIN(partial_rescoring);
         auto results = subset_rescore(weights);
+        scoring_time += (std::chrono::duration_cast<std::chrono::milliseconds> (std::chrono::steady_clock::now() - startpartial_rescoring)).count();
         TIMER_END(partial_rescoring);
 
         return results;
