@@ -393,12 +393,12 @@ int main(int argc, char **argv){
         t.join();
 
     TIMER_END(BMI_CLI);
-    cout<<"Total Scoring Time = "<<total_scoring_time/10<<endl;
-    cout<<"Total Training Time = "<<total_training_time/10<<endl;
-    cout<<"Total Running Time = "<<total_running_time/10<<endl;
-    cout<<"0.75 Running Time = "<<total_time_75/10<<endl;
-    cout<<"0.75 Effort  = "<<total_effort_75/10<<endl;
-    cout<<"Recall at 1  = "<<recall_1/10<<endl;
-    cout<<"Recall at 1.5  = "<<recall_15/10<<endl;
-    cout<<"Recall at 2  = "<<recall_2/10<<endl;
+    cout<<"Total Scoring Time = "<<total_scoring_time/seeds.size()<<endl;
+    cout<<"Total Training Time = "<<total_training_time/seeds.size()<<endl;
+    cout<<"Total Running Time = "<<total_running_time/seeds.size()<<endl;
+    cout<<"0.75 Running Time = "<<total_time_75/seeds.size()<<endl;
+    cout<<"0.75 Effort  = "<<total_effort_75/seeds.size()<<endl;
+    cout<<"Recall at 1  = "<<recall_1/seeds.size()<<endl;
+    cout<<"Recall at 1.5  = "<<recall_15/seeds.size()<<endl;
+    cout<<"Recall at 2  = "<<recall_2/seeds.size()<<endl;
 }
