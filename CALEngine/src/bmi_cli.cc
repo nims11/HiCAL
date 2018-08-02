@@ -379,8 +379,10 @@ int main(int argc, char **argv){
     // Todo: Better job management
     vector<thread> jobs;
     for(const pair<string, Seed> &seed_query: seeds){
+        {
         lock_guard<mutex> lock(global_mutex);
         num_jobs++;
+        }
         jobs.push_back(thread(begin_bmi_helper, seed_query, cref(documents), cref(paragraphs)));
         while(num_jobs >= CMD_LINE_INTS["--jobs"]){
             this_thread::sleep_for(chrono::milliseconds(1000));
