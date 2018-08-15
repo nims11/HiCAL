@@ -386,8 +386,10 @@ int main(int argc, char **argv){
     // Todo: Better job management
     vector<thread> jobs;
     for(const pair<string, Seed> &seed_query: seeds){
+        {
         lock_guard<mutex> lock(global_mutex);
         num_jobs++;
+        }
         jobs.push_back(thread(begin_bmi_helper, seed_query, cref(documents), cref(paragraphs)));
         while(num_jobs >= CMD_LINE_INTS["--jobs"]){
             this_thread::sleep_for(chrono::milliseconds(1000));
@@ -398,4 +400,12 @@ int main(int argc, char **argv){
         t.join();
 
     TIMER_END(BMI_CLI);
+    cout<<"Total Scoring Time = "<<total_scoring_time/seeds.size()<<endl;
+    cout<<"Total Training Time = "<<total_training_time/seeds.size()<<endl;
+    cout<<"Total Running Time = "<<total_running_time/seeds.size()<<endl;
+    cout<<"0.75 Running Time = "<<total_time_75/seeds.size()<<endl;
+    cout<<"0.75 Effort  = "<<total_effort_75/seeds.size()<<endl;
+    cout<<"Recall at 1  = "<<recall_1/seeds.size()<<endl;
+    cout<<"Recall at 1.5  = "<<recall_15/seeds.size()<<endl;
+    cout<<"Recall at 2  = "<<recall_2/seeds.size()<<endl;
 }
